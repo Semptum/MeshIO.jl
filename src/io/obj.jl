@@ -51,6 +51,7 @@ function load(io::Stream{format"OBJ"}; facetype=GLTriangleFace,
     end
     point_attributes = Dict{Symbol, Any}()
     uv_faces = f_uv_n_faces[2]
+    uv_vertices=uv
     normal_faces = f_uv_n_faces[3]
     if !isempty(v_normals)
         if !isempty(normal_faces)
@@ -83,7 +84,7 @@ function load(io::Stream{format"OBJ"}; facetype=GLTriangleFace,
         point_attributes[:uv] = uv
     end
 
-    return Mesh(meta(points; point_attributes...), faces)
+    return Mesh(meta(points; point_attributes...), faces),uv_vertices,uv_faces
 end
 
 # of form "faces v1 v2 v3 ....""
